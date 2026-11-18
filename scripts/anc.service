@@ -1,0 +1,16 @@
+[Unit]
+Description=Feedforward FxLMS active noise cancellation
+After=sound.target network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/anc
+ExecStart=/home/pi/anc/.venv/bin/python /home/pi/anc/run_anc.py
+Restart=on-failure
+RestartSec=2
+KillMode=mixed
+TimeoutStopSec=5
+
+[Install]
+WantedBy=multi-user.target

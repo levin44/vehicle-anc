@@ -1,0 +1,7 @@
+{
+  "remote.SSH.remotePlatform": {
+    "raspberry-pi": "linux"
+  },
+  "remote.SSH.configFile": "/home/ubuntu/.ssh/config",
+  "remote.SSH.defaultExtensions": []
+}

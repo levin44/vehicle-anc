@@ -1,0 +1,41 @@
+# ALSA device for Google Voice HAT (stereo I2S mics + speaker)
+device: "hw:1,0"
+rate: 48000
+channels: 2
+format: S32_LE
+
+# 0-based channel indices on capture (L/R on shared I2S bus)
+ref_channel: 0
+error_channel: 1
+
+# Per-channel input gain (float PCM scale after int32 normalization)
+ref_gain: 1.0
+error_gain: 1.0
+
+# Playback: mono anti-noise to both speaker channels
+playback_channels: 2
+invert_output: true   # flip if anti-noise adds instead of cancels
+
+block_size: 512
+filter_length: 192
+secondary_filter_length: 128
+
+# Normalized FxLMS step size
+mu: 0.01
+epsilon: 1.0e-8
+
+max_output: 0.25
+warmup_seconds: 3.0
+
+# Samples to delay reference relative to error (set via measure_delay.py)
+ref_to_error_delay: 0
+
+# Paths (relative to anc/ directory)
+secondary_path_file: "data/secondary_path.npz"
+
+# Watchdog: reduce mu if error RMS exceeds baseline * factor for N seconds
+watchdog_enabled: true
+watchdog_baseline_seconds: 5.0
+watchdog_factor: 2.5
+watchdog_duration_seconds: 2.0
+mu_min: 0.0001
